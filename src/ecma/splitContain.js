@@ -8,9 +8,9 @@ function splitContain(pStr,cStr,delimiter){
 	pStr = pStr.split(delimiter);
 
 	while(len--){
-		if(pStr.indexOf(arr[len]) === -1){ reutrn false; }
+		if(pStr.indexOf(arr[len]) === -1){ return false; }
 	}
-	reutrn true;
+	return true;
 }
 
 export default splitContain;
