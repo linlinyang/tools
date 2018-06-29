@@ -1,0 +1,24 @@
+{
+  "name": "birdie",
+  "version": "1.0.0",
+  "description": "quickly jsvascript function tools",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/linlinyang/tools.git"
+  },
+  "author": "zoro",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/linlinyang/tools/issues"
+  },
+  "homepage": "https://github.com/linlinyang/tools#readme",
+  "devDependencies": {
+    "browser-sync": "^2.24.5",
+    "gulp": "^3.9.1",
+    "gulp-sass": "^4.0.1"
+  }
+}
