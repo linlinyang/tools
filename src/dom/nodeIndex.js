@@ -7,8 +7,6 @@ function nodeIndex(node){
 	while(currNode){
 		currNode.nodeType == 1 && pos++;
 		if(currNode == node){return pos; }
-		(currNode = currNode.nextSibling) && currNode.nodeType == 1 && pos++;
-		if(currNode == node){return pos; }
 		currNode = currNode.nextSibling;
 	}
 
