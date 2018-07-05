@@ -86,6 +86,66 @@
 /************************************************************************/
 /******/ ({
 
+/***/ "./src/dom/nodeIndex.js":
+/*!******************************!*\
+  !*** ./src/dom/nodeIndex.js ***!
+  \******************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n\r\nfunction nodeIndex(node){\r\n\tvar parent = node.parentNode,\r\n\t\tpos = -1;\r\n\tif(!parent){ return pos; }\r\n\r\n\tvar childs = parent.children,\r\n\t\tlen = childs.length,\r\n\t\thalf = len & 1 \r\n\t\t\t\t? len >> 1\r\n\t\t\t\t: (len - 1) >> 1;\r\n\tfor(var i = 0; i <= half; i++){\r\n\t\tif(childs[i] == node){\r\n\t\t\treturn i;\r\n\t\t}\r\n\t\tvar end = len - 1 - i;\r\n\t\tif(childs[end] == node){\r\n\t\t\treturn end;\r\n\t\t}\r\n\t}\r\n\treturn -1;\r\n}\r\n\r\n\r\n/* harmony default export */ __webpack_exports__[\"default\"] = (nodeIndex);\n\n//# sourceURL=webpack:///./src/dom/nodeIndex.js?");
+
+/***/ }),
+
+/***/ "./src/ecma/padLeft.js":
+/*!*****************************!*\
+  !*** ./src/ecma/padLeft.js ***!
+  \*****************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _repeatStr__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./repeatStr */ \"./src/ecma/repeatStr.js\");\n\r\n\r\nfunction padLeft(str,len,char){\r\n\tvar strLen = str.length;\r\n\tchar = char === undefined ? ' ' : String(char);\r\n\treturn strLen > len \r\n\t\t\t? str\r\n\t\t\t: Object(_repeatStr__WEBPACK_IMPORTED_MODULE_0__[\"default\"])(char,len - strLen ) + str;\r\n}\r\n\r\n/* harmony default export */ __webpack_exports__[\"default\"] = (padLeft);\n\n//# sourceURL=webpack:///./src/ecma/padLeft.js?");
+
+/***/ }),
+
+/***/ "./src/ecma/padRight.js":
+/*!******************************!*\
+  !*** ./src/ecma/padRight.js ***!
+  \******************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _repeatStr__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./repeatStr */ \"./src/ecma/repeatStr.js\");\n\r\n\r\nfunction padRight(str,len,char){\r\n\tvar strLen = str.length;\r\n\tchar = char === undefined ? ' ' : String(char);\r\n\treturn strLen > len \r\n\t\t\t? str\r\n\t\t\t: str + Object(_repeatStr__WEBPACK_IMPORTED_MODULE_0__[\"default\"])(char,len - strLen );\r\n}\r\n\r\n/* harmony default export */ __webpack_exports__[\"default\"] = (padRight);\n\n//# sourceURL=webpack:///./src/ecma/padRight.js?");
+
+/***/ }),
+
+/***/ "./src/ecma/repeatStr.js":
+/*!*******************************!*\
+  !*** ./src/ecma/repeatStr.js ***!
+  \*******************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n\r\nfunction repeatStr(str,n){\r\n\tstr = String(str);\r\n\tif( !n ){ return ''; }\r\n\tif(str.repeat){ return str.repeat(n); }\r\n\tvar res = '';\r\n\twhile( n ){\r\n\t\tif( n & 1 ){\r\n\t\t\tres += str;\r\n\t\t}\r\n\t\tstr += str;\r\n\t\tn >>= 1;\r\n\t}\r\n\treturn res;\r\n}\r\n\r\n/* harmony default export */ __webpack_exports__[\"default\"] = (repeatStr);\n\n//# sourceURL=webpack:///./src/ecma/repeatStr.js?");
+
+/***/ }),
+
+/***/ "./src/ecma/shuffle.js":
+/*!*****************************!*\
+  !*** ./src/ecma/shuffle.js ***!
+  \*****************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\nfunction shuffle(arr){\r\n\treturn arr.sort(function(){\r\n\t\treturn Math.random() > 0.5;\r\n\t});\r\n}\r\n\r\n/* harmony default export */ __webpack_exports__[\"default\"] = (shuffle);\n\n//# sourceURL=webpack:///./src/ecma/shuffle.js?");
+
+/***/ }),
+
 /***/ "./src/ecma/splitContain.js":
 /*!**********************************!*\
   !*** ./src/ecma/splitContain.js ***!
@@ -130,7 +190,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n\r\nfunction usefulString(val
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _ecma_splitContain__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ecma/splitContain */ \"./src/ecma/splitContain.js\");\n/* harmony import */ var _ecma_toUrlParams__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ecma/toUrlParams */ \"./src/ecma/toUrlParams.js\");\n//import isbase from \"./ecma/isbase\";\r\n//import isArray from \"./ecma/isArray\";\r\n//import repeatStr from \"./ecma/repeatStr\";\r\n\r\n\r\n\r\nvar res = Object(_ecma_toUrlParams__WEBPACK_IMPORTED_MODULE_1__[\"default\"])({\r\n\tuname: 'zoro',\r\n\tage: '20'\r\n},'http://baidu.com');\r\nconsole.log(res);\r\n\r\nvar res1 = Object(_ecma_toUrlParams__WEBPACK_IMPORTED_MODULE_1__[\"default\"])({\r\n\tuname: 'zoro',\r\n\tage: '20'\r\n},'http://baidu.com?a=2');\r\nconsole.log(res1);\n\n//# sourceURL=webpack:///./src/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _ecma_splitContain__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ecma/splitContain */ \"./src/ecma/splitContain.js\");\n/* harmony import */ var _ecma_toUrlParams__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ecma/toUrlParams */ \"./src/ecma/toUrlParams.js\");\n/* harmony import */ var _ecma_shuffle__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ecma/shuffle */ \"./src/ecma/shuffle.js\");\n/* harmony import */ var _ecma_padLeft__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./ecma/padLeft */ \"./src/ecma/padLeft.js\");\n/* harmony import */ var _ecma_padRight__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./ecma/padRight */ \"./src/ecma/padRight.js\");\n/* harmony import */ var _dom_nodeIndex__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./dom/nodeIndex */ \"./src/dom/nodeIndex.js\");\n//import isbase from \"./ecma/isbase\";\r\n//import isArray from \"./ecma/isArray\";\r\n//import repeatStr from \"./ecma/repeatStr\";\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\nconsole.log(Object(_dom_nodeIndex__WEBPACK_IMPORTED_MODULE_5__[\"default\"])(document.querySelector('.nd')));\r\n\r\n\n\n//# sourceURL=webpack:///./src/index.js?");
 
 /***/ })
 
