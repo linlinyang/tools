@@ -13,7 +13,9 @@
 // import countOccurrences from "./ecma/countOccurrences";
 // import unique from "./ecma/unique";
 import deepFlatten from "./ecma/deepFlatten";
+import difference from "./ecma/difference";
 
-var arr = [1,2,3,[4,5,5,[6,7,8,[2,3,'a']]]];
-var tt = deepFlatten(arr);
+var arr1 = [1,3,5,7,8,9,10],
+	arr2 = [2,4,6,8,10];
+var tt = difference(arr1,arr2);
 console.log(tt);
