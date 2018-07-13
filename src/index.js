@@ -1,4 +1,4 @@
-//import * from './ecma/polyfill/index';
+import './ecma/polyfill/index';
 //import isbase from "./ecma/isbase";
 //import isArray from "./ecma/isArray";
 //import repeatStr from "./ecma/repeatStr";
@@ -14,6 +14,7 @@
 // import unique from "./ecma/unique";
 import deepFlatten from "./ecma/deepFlatten";
 import difference from "./ecma/difference";
+
 
 var arr1 = [1,3,5,7,8,9,10],
 	arr2 = [2,4,6,8,10];

@@ -1,1 +1,3 @@
-export { * } from './indexOf';
+import "./indexOf";
+import "./isArray";
+

@@ -2,7 +2,7 @@
 *polyfill of array indexOf
 */
 
-var proto = Array.prototype;
+let proto = Array.prototype;
 
 proto.indexOf = proto.indexOf || function(val){
 				var len = this.length;
@@ -14,3 +14,4 @@ proto.indexOf = proto.indexOf || function(val){
 
 				return len;
 			};
+proto = null;

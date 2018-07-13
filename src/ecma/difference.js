@@ -13,4 +13,11 @@ function difference(checkArr,templateAtt){
 	return res;
 }
 
+function difference1(checkArr,templateAtt){
+	var tmplateSets = new Set(templateAtt);
+	return checkArr.filter(function(val){
+		return !tmplateSets.has(val);
+	});
+}
+
 export default difference;
