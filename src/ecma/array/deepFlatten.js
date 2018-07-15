@@ -1,7 +1,6 @@
 /*
 *free all inner array into this array
 */
-import isArray from './isArray';
 
 var ptoPush = Array.prototype.push;
 
@@ -11,7 +10,7 @@ function deepFlatten(arr){
 		newArr = [];
 	for(var i = 0, len = arr.length; i < len; i++){
 		val = arr[i];
-		if(isArray(val)){
+		if(Array.isArray(val)){
 			ptoPush.apply(newArr,deepFlatten(val));
 		}else{
 			newArr.push(val);

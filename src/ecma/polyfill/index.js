@@ -1,3 +1,0 @@
-import "./indexOf";
-import "./isArray";
-
