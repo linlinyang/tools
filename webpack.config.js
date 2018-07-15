@@ -1,9 +1,11 @@
 const path = require('path');
 
 module.exports = {
-	entry: path.resolve(__dirname,'./src/index'),
+	entry: {
+		tool: ['babel-polyfill',path.resolve(__dirname,'./src/index')]
+	},
 	output: {
-		filename: 'bundle.js',
+		filename: '[name].js',
 		path: path.resolve(__dirname, 'dist'),
 		libraryTarget: 'umd',
         globalObject: 'this',

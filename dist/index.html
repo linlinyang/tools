@@ -4,6 +4,10 @@
 	<title>Test</title>
 	<meta charset="utf-8">
 	<style type="text/css">
+		*{
+			margin: 0;
+			padding: 0;
+		}
 		body{
 			font-family: -apple-system, BlinkMacSystemFont, "PingFang SC","Helvetica Neue",STHeiti,"Microsoft Yahei",Tahoma,Simsun,sans-serif;
 		}
@@ -12,6 +16,18 @@
 			text-align: center;
 			margin-top: 30px;
 		}
+		.box{
+			width: 200px;
+			height: 200px;
+			margin: 400px auto 30px;
+			position: relative;
+			overflow: hidden;
+			background: #3ac4d4;
+			border: 5px solid #b6d8b8;
+			border-radius: 10px;
+			padding: 10px;
+			/*box-sizing: border-box;*/
+		}
 
 	</style>
 </head>
@@ -19,26 +35,17 @@
 
 	<h2>Lin Libary</h2>
 
-	<div>
-		<div></div>
-		<div></div>
-		<div></div>
-		<div></div>
-		<div></div>
-		<div></div>
-		<div></div>
-		<div></div>
-		<div></div>
-		<div></div>
-		<div></div>
-		<div></div>
-		<div></div>
-		<div class="nd"></div>
-		<div></div>
-		<div></div>
+	<div class="box" id="mybox" style="color: #fff;text-align: center;line-height: 200px;">
+		<span>Hello</span>
 	</div>
 
-	<script type="text/javascript" src="bundle.js"></script>
+	<script type="text/javascript" src="tool.js"></script>
+	<script type="text/javascript">
+		
+		var box = document.getElementById('mybox');
+		console.log(Lin.getCss(box,'width'));
+
+	</script>
 
 </body>
 </html>
