@@ -20,10 +20,10 @@ function deepFlatten(arr){
 	return newArr;
 }
 
-function deepFlatten1(arr){
+/*function deepFlatten1(arr){
 	return [].concat(...arr.map(function(v,i){
 		return Array.isArray(v) ? deepFlatten1(v) : v;
 	}));
-}
+}*/
 
 export default deepFlatten;

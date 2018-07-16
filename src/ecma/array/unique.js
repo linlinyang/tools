@@ -15,8 +15,8 @@ function unique(arr){
 	return arr;
 }
 
-function unique1(arr){
+/*function unique1(arr){
 	return Array.from(new Set(...arr));
-}
+}*/
 
 export default unique;

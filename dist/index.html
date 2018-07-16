@@ -26,6 +26,7 @@
 			border: 5px solid #b6d8b8;
 			border-radius: 10px;
 			padding: 10px;
+			opacity: 0.9;
 			/*box-sizing: border-box;*/
 		}
 
@@ -35,7 +36,7 @@
 
 	<h2>Lin Libary</h2>
 
-	<div class="box" id="mybox" style="color: #fff;text-align: center;line-height: 200px;">
+	<div class="box" id="mybox" style="color: #fff;text-align: center;line-height: 200px;transform: rotateZ(30deg) scale(1,1.1);width: 20%;">
 		<span>Hello</span>
 	</div>
 
@@ -43,7 +44,9 @@
 	<script type="text/javascript">
 		
 		var box = document.getElementById('mybox');
-		console.log(Lin.getCss(box,'width'));
+		console.log(Lin.getCss(box,'opacity'));
+		console.log(Lin.getCss(box,['width','height']));
+		console.log(Lin.getCss(box,'padding-left'));
 
 	</script>
 

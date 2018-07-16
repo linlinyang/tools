@@ -1,6 +1,7 @@
 import kebabCase from '../ecma/string/kebabCase';
 import camelCase from '../ecma/string/camelCase';
 import trim from '../ecma/string/trim';
+import deepFlatten from '../ecma/array/deepFlatten';
 
 var win = window,
 	doc = document,
@@ -48,11 +49,23 @@ export function getCss(el,strOrArr){
 		return style[strOrArr];
 	}
 	if(Array.isArray(strOrArr)){
+		strOrArr = deepFlatten(strOrArr);
 		var res = {};
 		for(var i = 0,len = strOrArr.length; i < len; i++){
-			res[strOrArr[i]] = getCss(strOrArr[i]);
+			res[strOrArr[i]] = getCss(el,strOrArr[i]);
 		}
 		return res;
+	}
+	return '';
+}
+
+export function setCss(el,strOrObj,valStr,important){
+	if(!el){
+		throw new Error('Expected at least onemore param');
+		return ;
+	}
+	if(strOrObj === undefined){
+		return null;
 	}
 }
 
