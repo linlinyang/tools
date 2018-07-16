@@ -1,43 +1,23 @@
 import kebabCase from '../ecma/string/kebabCase';
 import camelCase from '../ecma/string/camelCase';
 import trim from '../ecma/string/trim';
+import isPlainObject from '../ecma/object/isPlainObject';
 
 var win = window,
 	doc = document,
 	defaultView = doc.defaultView,
 	rootEl = doc.compatMode === 'CSS1Compat' ? doc.documentElement : doc.body;
 
-export default function css(el,key,val,important){
-	if(el === win || el === doc){
-		return null;
+export default function css(el,anyKey,val,important){
+	if(!el){
+		throw new Error('Expected at least onemore param');
 	}
-	val = val && trim(val);
-	if(!val){
-		var style = defaultView ? defaultView.getComputedStyle(el) : el.currentStyle;
-		return style[camelCase(key)];
-	}
-	val = !!important ? val + '!important' : val;
-	val = val.lastIndexOf(';') > -1 ? val : val + ';';
-
-	key = kebabCase(trim(key));
-
-	var cssText = el.style.cssText;
-	if(cssText.indexOf(key) === -1){
-		el.style.cssText = cssText + key + ':' + val;
-	}else{
-		var reg = new RegExp("("+key+":).*?;",'ig');
-		el.style.cssText = cssText.replace(reg,function(all,first){
-			return first + val;
-		});
-	}
-	return val;
-
+	
 }
 
 export function getCss(el,strOrArr){
 	if(!el){
 		throw new Error('Expected at least onemore param');
-		return ;
 	}
 	var style = defaultView ? defaultView.getComputedStyle(el) : el.currentStyle;
 	if(strOrArr === undefined){
@@ -60,11 +40,27 @@ export function getCss(el,strOrArr){
 export function setCss(el,strOrObj,valStr,important){
 	if(!el){
 		throw new Error('Expected at least onemore param');
-		return ;
 	}
 	if(strOrObj === undefined){
 		return null;
 	}
+	if(typeof strOrObj === 'string'){
+		if(valStr === undefined){
+			return null;
+		}else{
+			el.style[strOrObj] = !!important ? valStr + 'important' : valStr;
+			return valStr;
+		}
+	}
+	if(isPlainObject(strOrObj)){
+		for(var key in strOrObj){
+			if(strOrObj.hasOwnProperty(key)){
+				setCss(el,key,strOrObj[key]);
+			}
+		}
+		return strOrObj
+	}
+	return null;
 }
 
 export function getSize(el){
