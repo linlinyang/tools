@@ -2,22 +2,32 @@ import kebabCase from '../ecma/string/kebabCase';
 import camelCase from '../ecma/string/camelCase';
 import trim from '../ecma/string/trim';
 import isPlainObject from '../ecma/object/isPlainObject';
-
-var win = window,
-	doc = document,
-	defaultView = doc.defaultView,
-	rootEl = doc.compatMode === 'CSS1Compat' ? doc.documentElement : doc.body;
+import {win,doc,defaultView,rootEl} from './config.js';
 
 export default function css(el,anyKey,val,important){
 	if(!el){
 		throw new Error('Expected at least onemore param');
 	}
-	
+	if(anyKey === undefined){
+		return el;
+	}
+	if(val === undefined){
+		if(isPlainObject(anyKey)){
+			return setCss(el,anyKey);
+		}else{
+			return getCss(el,anyKey);
+		}
+	}else{
+		return setCss(el,anyKey,val,important);
+	}
 }
 
 export function getCss(el,strOrArr){
 	if(!el){
 		throw new Error('Expected at least onemore param');
+	}
+	if(el === win || el === doc){
+		throw new Error('Cannot get window or document style');
 	}
 	var style = defaultView ? defaultView.getComputedStyle(el) : el.currentStyle;
 	if(strOrArr === undefined){
@@ -41,6 +51,9 @@ export function setCss(el,strOrObj,valStr,important){
 	if(!el){
 		throw new Error('Expected at least onemore param');
 	}
+	if(el === win || el === doc){
+		throw new Error('Cannot set window or document style');
+	}
 	if(strOrObj === undefined){
 		return null;
 	}
@@ -63,16 +76,6 @@ export function setCss(el,strOrObj,valStr,important){
 	return null;
 }
 
-export function getSize(el){
-	if(el === win){
-		return getWindowSize();
-	}
-	if(el === doc){
-		return getDocumentSize();
-	}
-	return css(el,['width','height']);
-}
-
 export function getWindowSize(){
 	return {
 		width: win.innerWidth || rootEl.clientWidth,
@@ -86,3 +89,60 @@ export function getDocumentSize(){
 		height: Math.max(rootEl.clientHeight,rootEl.offsetWidth,rootEl.scrollHeight)
 	};
 }
+
+export function scrollTop(el){
+	return scrollPos(el)['top'];
+}
+export function scrollLeft(el){
+	return scrollPos(el)['left'];
+}
+
+export function scrollPos(el){
+	if(el === doc){
+		return {
+			'top': 0,
+			'left': 0
+		};
+	}
+	if(el === win){
+		return {
+			'top': win.pageYOffset || rootEl.scrollTop,
+			'left': win.pageXOffset || rootEl.scrollLeft
+		};
+	}
+	return {
+		'top': el.scrollTop,
+		'left': el.scrollLeft
+	};
+}
+
+export function offsetLeft(el){
+	return offset(el)['left'];
+}
+
+export function offsetTop(el){
+	return offset(el)['top'];
+}
+
+export function offset(el){
+	if(el === win || el === doc){
+		return {
+			'top': 0,
+			'left': 0
+		}
+	}
+	var pat = el,
+		top = 0,
+		left = 0;
+	while(pat){
+		top += pat.offsetTop;
+		left += pat.offsetLeft;
+		pat = pat.offsetParent;
+	}
+	return {
+		'top': top,
+		'left': left
+	}
+}
+
+export function clientPos(el){}

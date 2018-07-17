@@ -10,6 +10,7 @@
 		}
 		body{
 			font-family: -apple-system, BlinkMacSystemFont, "PingFang SC","Helvetica Neue",STHeiti,"Microsoft Yahei",Tahoma,Simsun,sans-serif;
+			padding-bottom: 40px;
 		}
 		h2{
 			font-family: serif;
@@ -64,24 +65,13 @@
 
 	<script type="text/javascript" src="tool.js"></script>
 	<script type="text/javascript">
-		
-		var box = document.getElementById('mybox'),
-			inner = document.querySelector('.bb');
-		console.log(Lin.getCss(box,'opacity'));
-		console.log(Lin.getCss(box,['width','height']));
-		console.log(Lin.getCss(box,'padding-left'));
-		/*setInterval(function(){
-			console.log(Lin.getCss(inner,'scroll-top'));
-			console.log(inner.scrollTop);
-		},1000);*/
-		Lin.setCss(box,'padding-left');
-		Lin.setCss(box,'padding-left','50px');
-		Lin.setCss(box,{
-			'background-color': '#333',
-			'margin-top': '30px'
-		});
+		var aa = document.querySelector('.box');
+		console.log(Lin.scrollPos(window));
 
-
+		var str = '/dwa/config.js',
+			reg = new RegExp('[^(config)]\\.js','ig');
+		console.log(reg);
+		console.log(reg.test(str));
 	</script>
 
 </body>
