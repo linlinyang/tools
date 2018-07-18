@@ -70,11 +70,18 @@
 
 		aa.addEventListener('click',function(){
 			console.log(Lin.rect(aa));
+			Lin.toggleClass(aa,'active yanglin');
 		});
 
-		console.log(Lin.hasClass(aa,'active'));
-		console.log(Lin.hasClass(aa,'active yanglin'));
-		console.log(Lin.hasClass(aa,'lin'));
+		Lin.addClass(aa,'snake');
+		console.log(Lin.hasClass(aa,'yanglin snake'));
+		Lin.removeClass(aa,'tt active');
+		console.log(Lin.hasClass(aa,'box zoro'));
+
+		var reg = new RegExp('(^\|\\s\+)cc(\\s\+\|$)','g'),
+			str = 'aa bb cc dd';
+		var tt = str.replace(reg,'$2');
+		console.log(tt);
 
 	</script>
 
