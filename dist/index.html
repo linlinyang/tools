@@ -51,7 +51,7 @@
 
 	<h2>Lin Libary</h2>
 
-	<div class="box" id="mybox" style="color: #fff;text-align: center;line-height: 200px;transform: rotateZ(30deg) scale(1,1.1);width: 20%;">
+	<div class="box adw yanglin tt active" id="mybox" style="color: #fff;text-align: center;line-height: 200px;width: 20%;opacity: 0.3">
 		<span>Hello</span>
 	</div>
 
@@ -66,12 +66,16 @@
 	<script type="text/javascript" src="tool.js"></script>
 	<script type="text/javascript">
 		var aa = document.querySelector('.box');
-		console.log(Lin.scrollPos(window));
+		console.log(Lin.css(aa,'opacity'));
 
-		var str = '/dwa/config.js',
-			reg = new RegExp('[^(config)]\\.js','ig');
-		console.log(reg);
-		console.log(reg.test(str));
+		aa.addEventListener('click',function(){
+			console.log(Lin.rect(aa));
+		});
+
+		console.log(Lin.hasClass(aa,'active'));
+		console.log(Lin.hasClass(aa,'active yanglin'));
+		console.log(Lin.hasClass(aa,'lin'));
+
 	</script>
 
 </body>

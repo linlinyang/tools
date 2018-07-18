@@ -34,8 +34,16 @@ export function getCss(el,strOrArr){
 		return style;
 	}
 	if(typeof strOrArr === 'string'){
-		strOrArr = camelCase(trim(strOrArr));
-		return style[strOrArr];
+		strOrArr = trim(strOrArr);
+		if(strOrArr === 'opacity'){
+			var filter = style['filter'];
+			filter = filter && filter.match(/^alpha\(opacity=(\d+(?:\.\d+)?)\)$/);
+			return filter 
+					? (filter[1] || 1) / 100
+					: style['opacity'];
+		}else{
+			return style[strOrArr];
+		}
 	}
 	if(Array.isArray(strOrArr)){
 		var res = {};
@@ -58,10 +66,17 @@ export function setCss(el,strOrObj,valStr,important){
 		return null;
 	}
 	if(typeof strOrObj === 'string'){
+		strOrObj = trim(strOrObj);
 		if(valStr === undefined){
 			return null;
 		}else{
-			el.style[strOrObj] = !!important ? valStr + 'important' : valStr;
+			valStr = !!important ? valStr + 'important' : valStr;
+			if(strOrObj === 'opacity'){
+				el.style['opacity'] = valStr;
+				el.style['filter'] = 'alpha(opacity=' + valStr * 100 + ')';
+			}else{
+				el.style[strOrObj] = valStr;
+			}
 			return valStr;
 		}
 	}
@@ -76,73 +91,3 @@ export function setCss(el,strOrObj,valStr,important){
 	return null;
 }
 
-export function getWindowSize(){
-	return {
-		width: win.innerWidth || rootEl.clientWidth,
-		height: win.innerHeight || rootEl.clientHeight
-	};
-}
-
-export function getDocumentSize(){
-	return {
-		width: Math.max(rootEl.clientWidth,rootEl.offsetWidth,rootEl.scrollWidth),
-		height: Math.max(rootEl.clientHeight,rootEl.offsetWidth,rootEl.scrollHeight)
-	};
-}
-
-export function scrollTop(el){
-	return scrollPos(el)['top'];
-}
-export function scrollLeft(el){
-	return scrollPos(el)['left'];
-}
-
-export function scrollPos(el){
-	if(el === doc){
-		return {
-			'top': 0,
-			'left': 0
-		};
-	}
-	if(el === win){
-		return {
-			'top': win.pageYOffset || rootEl.scrollTop,
-			'left': win.pageXOffset || rootEl.scrollLeft
-		};
-	}
-	return {
-		'top': el.scrollTop,
-		'left': el.scrollLeft
-	};
-}
-
-export function offsetLeft(el){
-	return offset(el)['left'];
-}
-
-export function offsetTop(el){
-	return offset(el)['top'];
-}
-
-export function offset(el){
-	if(el === win || el === doc){
-		return {
-			'top': 0,
-			'left': 0
-		}
-	}
-	var pat = el,
-		top = 0,
-		left = 0;
-	while(pat){
-		top += pat.offsetTop;
-		left += pat.offsetLeft;
-		pat = pat.offsetParent;
-	}
-	return {
-		'top': top,
-		'left': left
-	}
-}
-
-export function clientPos(el){}
