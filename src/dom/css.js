@@ -2,30 +2,48 @@ import kebabCase from '../ecma/string/kebabCase';
 import camelCase from '../ecma/string/camelCase';
 import trim from '../ecma/string/trim';
 import isPlainObject from '../ecma/object/isPlainObject';
-
-var win = window,
-	doc = document,
-	defaultView = doc.defaultView,
-	rootEl = doc.compatMode === 'CSS1Compat' ? doc.documentElement : doc.body;
+import {win,doc,defaultView,rootEl} from './config.js';
 
 export default function css(el,anyKey,val,important){
 	if(!el){
 		throw new Error('Expected at least onemore param');
 	}
-	
+	if(anyKey === undefined){
+		return el;
+	}
+	if(val === undefined){
+		if(isPlainObject(anyKey)){
+			return setCss(el,anyKey);
+		}else{
+			return getCss(el,anyKey);
+		}
+	}else{
+		return setCss(el,anyKey,val,important);
+	}
 }
 
 export function getCss(el,strOrArr){
 	if(!el){
 		throw new Error('Expected at least onemore param');
 	}
+	if(el === win || el === doc){
+		throw new Error('Cannot get window or document style');
+	}
 	var style = defaultView ? defaultView.getComputedStyle(el) : el.currentStyle;
 	if(strOrArr === undefined){
 		return style;
 	}
 	if(typeof strOrArr === 'string'){
-		strOrArr = camelCase(trim(strOrArr));
-		return style[strOrArr];
+		strOrArr = trim(strOrArr);
+		if(strOrArr === 'opacity'){
+			var filter = style['filter'];
+			filter = filter && filter.match(/^alpha\(opacity=(\d+(?:\.\d+)?)\)$/);
+			return filter 
+					? (filter[1] || 1) / 100
+					: style['opacity'];
+		}else{
+			return style[strOrArr];
+		}
 	}
 	if(Array.isArray(strOrArr)){
 		var res = {};
@@ -41,14 +59,24 @@ export function setCss(el,strOrObj,valStr,important){
 	if(!el){
 		throw new Error('Expected at least onemore param');
 	}
+	if(el === win || el === doc){
+		throw new Error('Cannot set window or document style');
+	}
 	if(strOrObj === undefined){
 		return null;
 	}
 	if(typeof strOrObj === 'string'){
+		strOrObj = trim(strOrObj);
 		if(valStr === undefined){
 			return null;
 		}else{
-			el.style[strOrObj] = !!important ? valStr + 'important' : valStr;
+			valStr = !!important ? valStr + 'important' : valStr;
+			if(strOrObj === 'opacity'){
+				el.style['opacity'] = valStr;
+				el.style['filter'] = 'alpha(opacity=' + valStr * 100 + ')';
+			}else{
+				el.style[strOrObj] = valStr;
+			}
 			return valStr;
 		}
 	}
@@ -63,26 +91,3 @@ export function setCss(el,strOrObj,valStr,important){
 	return null;
 }
 
-export function getSize(el){
-	if(el === win){
-		return getWindowSize();
-	}
-	if(el === doc){
-		return getDocumentSize();
-	}
-	return css(el,['width','height']);
-}
-
-export function getWindowSize(){
-	return {
-		width: win.innerWidth || rootEl.clientWidth,
-		height: win.innerHeight || rootEl.clientHeight
-	};
-}
-
-export function getDocumentSize(){
-	return {
-		width: Math.max(rootEl.clientWidth,rootEl.offsetWidth,rootEl.scrollWidth),
-		height: Math.max(rootEl.clientHeight,rootEl.offsetWidth,rootEl.scrollHeight)
-	};
-}

@@ -10,6 +10,7 @@
 		}
 		body{
 			font-family: -apple-system, BlinkMacSystemFont, "PingFang SC","Helvetica Neue",STHeiti,"Microsoft Yahei",Tahoma,Simsun,sans-serif;
+			padding-bottom: 40px;
 		}
 		h2{
 			font-family: serif;
@@ -50,7 +51,7 @@
 
 	<h2>Lin Libary</h2>
 
-	<div class="box" id="mybox" style="color: #fff;text-align: center;line-height: 200px;transform: rotateZ(30deg) scale(1,1.1);width: 20%;">
+	<div class="box adw yanglin tt active" id="mybox" style="color: #fff;text-align: center;line-height: 200px;width: 20%;opacity: 0.3">
 		<span>Hello</span>
 	</div>
 
@@ -64,23 +65,16 @@
 
 	<script type="text/javascript" src="tool.js"></script>
 	<script type="text/javascript">
-		
-		var box = document.getElementById('mybox'),
-			inner = document.querySelector('.bb');
-		console.log(Lin.getCss(box,'opacity'));
-		console.log(Lin.getCss(box,['width','height']));
-		console.log(Lin.getCss(box,'padding-left'));
-		/*setInterval(function(){
-			console.log(Lin.getCss(inner,'scroll-top'));
-			console.log(inner.scrollTop);
-		},1000);*/
-		Lin.setCss(box,'padding-left');
-		Lin.setCss(box,'padding-left','50px');
-		Lin.setCss(box,{
-			'background-color': '#333',
-			'margin-top': '30px'
+		var aa = document.querySelector('.box');
+		console.log(Lin.css(aa,'opacity'));
+
+		aa.addEventListener('click',function(){
+			console.log(Lin.rect(aa));
 		});
 
+		console.log(Lin.hasClass(aa,'active'));
+		console.log(Lin.hasClass(aa,'active yanglin'));
+		console.log(Lin.hasClass(aa,'lin'));
 
 	</script>
 
