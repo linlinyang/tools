@@ -66,22 +66,10 @@
 	<script type="text/javascript" src="tool.js"></script>
 	<script type="text/javascript">
 		var aa = document.querySelector('.box');
-		console.log(Lin.css(aa,'opacity'));
 
-		aa.addEventListener('click',function(){
-			console.log(Lin.rect(aa));
-			Lin.toggleClass(aa,'active yanglin');
-		});
-
-		Lin.addClass(aa,'snake');
-		console.log(Lin.hasClass(aa,'yanglin snake'));
-		Lin.removeClass(aa,'tt active');
-		console.log(Lin.hasClass(aa,'box zoro'));
-
-		var reg = new RegExp('(^\|\\s\+)cc(\\s\+\|$)','g'),
-			str = 'aa bb cc dd';
-		var tt = str.replace(reg,'$2');
-		console.log(tt);
+		console.log(Lin.isShow(aa));
+		console.log(Lin.isInViewport(aa));
+		console.log(Lin.rect(aa));
 
 	</script>
 

@@ -21,7 +21,7 @@ export function scrollPos(el){
 		};
 	}
 	return {
-		'top': el.scrollTop,
-		'left': el.scrollLeft
+		'top': el.pageYOffset || el.scrollTop,
+		'left': el.pageXOffset || el.scrollLeft
 	};
 }
