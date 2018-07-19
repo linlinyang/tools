@@ -14,13 +14,7 @@ export default function isInViewport(el,partiallyVisible){
 		winInfo = getWindowRect(),
 		winWidth = winInfo['width'],
 		winHeight = winInfo['height'];
-	if(!!partiallyVisible){
-		return 
-			(top > 0 && top < winHeight)
-			|| (bottom > 0 && bottom < winHeight)
-			|| (left > 0 && left < winWidth)
-			|| (right > 0 && right < winWidth)
-	}else{
-		return top > 0 && bottom < winHeight && left > 0 && right < winWidth;
-	}
+	return !!partiallyVisible 
+			? ((top > 0 && top < winHeight) || (bottom > 0 && bottom < winHeight)) && ((left > 0 && left < winWidth) || (right > 0 && right < winWidth))
+			: top > 0 && bottom < winHeight && left > 0 && right < winWidth;
 }
