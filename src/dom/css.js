@@ -35,6 +35,10 @@ export function getCss(el,strOrArr){
 	}
 	if(typeof strOrArr === 'string'){
 		strOrArr = trim(strOrArr);
+		if(!strOrArr){
+			return style;
+		}
+		strOrArr = camelCase(strOrArr);
 		if(strOrArr === 'opacity'){
 			var filter = style['filter'];
 			filter = filter && filter.match(/^alpha\(opacity=(\d+(?:\.\d+)?)\)$/);
@@ -70,6 +74,7 @@ export function setCss(el,strOrObj,valStr,important){
 		if(valStr === undefined){
 			return null;
 		}else{
+			strOrObj = kebabCase(strOrObj);
 			valStr = !!important ? valStr + 'important' : valStr;
 			if(strOrObj === 'opacity'){
 				el.style['opacity'] = valStr;
