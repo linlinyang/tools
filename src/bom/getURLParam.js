@@ -37,20 +37,20 @@ export default function getURLParam(name,url){
  * @example
  * This page link is'http://example.com/abc?a=a&b=123&c=abc123'
  * 
- * Lin.getURLParameters();
+ * Lin.getURLParams();
  * // => {a: a,b: 123,c: abc123}
  *
- * Lin.getURLParameters('?foo=foo&c=bar')
+ * Lin.getURLParams('?foo=foo&c=bar')
  * // => {foo: foo,bar: bar}
  *
 */
-export function getURLParameters(url){
+export function getURLParams(url){
 	url = url || location.href;
 	var paramsArr = url.match(/([^&=?]+)(=([^&]*))/g),
 		ret = {};
 	for(var i = 0,len = paramsArr.length,tmp; i < len; i++){
 		tmp = paramsArr[i].split('=');
-		ret[tmp[0]] = tmp[1];
+		ret[tmp[0]] = unescape(tmp[1]);
 	}
 	return ret;
 }
