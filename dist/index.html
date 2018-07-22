@@ -65,7 +65,35 @@
 
 	<script type="text/javascript" src="tool.js"></script>
 	<script type="text/javascript">
-
+		var c = {
+				name: 'zoro'
+			},
+			inner = [1,2,3],
+			arr = [
+				1,
+				'2',
+				'some string',
+				{
+					a: 'a',
+					b: 'bb',
+					c: c
+				},
+				undefined,
+				[inner,[4,5]],
+				function(){
+					console.log('fun in arr');
+				},{
+					foo: function(){
+						console.log('this is foo');
+					},
+					undef: undefined
+				}
+			];
+		var tt = Lin.cloneArray(arr,true,true);
+		console.log(tt);
+		inner[1] = 'wulala';
+		c.name = 'snake';
+		console.log(tt);
 	</script>
 
 </body>
