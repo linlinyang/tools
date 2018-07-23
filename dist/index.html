@@ -65,9 +65,14 @@
 
 	<script type="text/javascript" src="tool.js"></script>
 	<script type="text/javascript">
-		console.log(Lin.getURLParam());
-		console.log(Lin.getURLParam('aa1'));
-		console.log(Lin.getURLParam('aa'));
+		var aa = document.getElementById('mybox');
+
+		Lin.listen(aa,'click',hander);
+		Lin.listen(aa,'click',hander);
+		function hander(){
+			console.log('gg');
+			//Lin.unlisten(aa,'click',hander);
+		}
 	</script>
 
 </body>

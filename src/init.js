@@ -1,7 +1,7 @@
 function init(Lin){
 	importAll(require.context('./ecma/polyfill/', true, /\.js$/),Lin);
 	importAll(require.context('./ecma/', true, /\.js$/),Lin);
-	importAll(require.context('./dom/', true, /[^(config)]\.js$/),Lin);
+	importAll(require.context('./dom/', true, /\b((?!config).)+\b\.js/),Lin);
 	importAll(require.context('./bom/', true, /\.js$/),Lin);
 }
 
