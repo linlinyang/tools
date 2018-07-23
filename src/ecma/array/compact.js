@@ -3,7 +3,7 @@ function compact(arr){
 
 	var len = arr.length;
 
-	for(;len--;){
+	while(len--){
 		!arr[len] && arr.splice(len,1)
 	}
 	return arr;
