@@ -38,13 +38,13 @@ export default function formatDate(date,fmt){
 		return date;
 	}
 	var fmtObj = {
-		'y': date.getFullYear(),
-		'm': date.getMonth() + 1,
-		'd': date.getDate(),
-		'h': date.getHours(),
-		'i': date.getMinutes(),
-		's': date.getSeconds(),
-		'S': date.getMilliseconds()
+		'y+': date.getFullYear(),
+		'm+': date.getMonth() + 1,
+		'd+': date.getDate(),
+		'h+': date.getHours(),
+		'i+': date.getMinutes(),
+		's+': date.getSeconds(),
+		'S+': date.getMilliseconds()
 	}
 	for(var key in fmtObj){
 		if(fmtObj.hasOwnProperty(key)){
