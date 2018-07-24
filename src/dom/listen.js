@@ -24,84 +24,96 @@ var cache = Object.create(null),
 						el['on' + type] = null;
 					}; 
 
+/**
+ * add event listener to some element
+ *
+ * @param {node} el;the element which add event listener
+ * @param {string} type;the event type
+ * @param {function} hander;the function which fired event
+ * @param {boolean} isBobble; is bobble for event and the event must support it
+ * 
+ * @example
+ * 
+ * var btn = document.getElementByTagName('button')[0];
+ * Lin.listen(btn,'click',function(){},true);
+ *
+ * the event add by this way will be removed when window unloaded;
+ *
+*/
 export default function listen(el,type,hander,isBobble){
 	type = String(type).toLowerCase();
 	isBobble = !!isBobble;
 
 	add(el,type,hander,isBobble);
-	addCache(el,type,hander,isBobble);
-
+	toggleCache(el,type,hander,isBobble);
 }
 
+/**
+ * remove event listener from some element
+ *
+ * @param {node} el;the element which removed element
+ * @param {string} type;the removed event type
+ * @param {function} hander;the function which bind to element
+ * @param {boolean} isBobble; is bobble for event and the event must support it
+ * 
+ * @example
+ * 
+ * var btn = document.getElementByTagName('button')[0];
+ * Lin.unlisten(btn,'click',clickFunc,true);
+ * function clickFunc(){}
+ *
+ *
+*/
 export function unlisten(el,type,hander,isBobble){
 	type = String(type).toLowerCase();
 	isBobble = !!isBobble;
 
 	remove(el,type,hander,isBobble);
-	removeCache(el,type,hander,isBobble);
+	toggleCache(el,type,hander,isBobble);
 }
 
-function addCache(el,type,hander,isBobble){
+function toggleCache(el,type,hander,isBobble){
 	var tagName = el.tagName;
-	tagName = (tagName && tagName.toLowerCase()) || 'other';
+	tagName = (tagName && tagName.toLowerCase()) || 'otherTag';
 
-	if(searchCache(el,type,hander,isBobble) === false){
-		var cacheTag = cache[tagName];
-		if(!cacheTag){
-			cacheTag = cache[tagName] = [];
+	var cacheTags = cache[tagName];
+	if(!cacheTags){
+		cacheTags = cache[tagName] = [];
+	}
+
+	var len = cacheTags.length;
+	while(len--){
+		var tmpTag = cacheTags[len];
+		if(
+			tmpTag['el'] === el
+			&& tmpTag['type'] === type
+			&& tmpTag['hander'] === hander
+			&& tmpTag['isBobble'] === isBobble
+			){
+			return cacheTags.splice(len,1);
 		}
-		cacheTag.push({
-			el: el,
-			type: type,
-			hander: hander,
-			isBobble: isBobble
-		});
 	}
+	cacheTags.push({
+		el: el,
+		type: type,
+		hander: hander,
+		isBobble: isBobble
+	});
+
+	cacheTags = null;
 }
 
-function removeCache(el,type,hander,isBobble){
-	var tagName = el.tagName;
-	tagName = (tagName && tagName.toLowerCase()) || 'other';
+listen(win,'unload',unload);
 
-	if(searchCache(el,type,hander,isBobble) === false){
-		
-	}
-}
-
-function searchCache(el,type,hander,isBobble){
-	var tagName = el.tagName;
-	tagName = tagName && tagName.toLowerCase();
-
-	var cacheTag = cache[tagName] || cache['other'];
-	if(cacheTag){
-		var len = cacheTag.length;
+function unload(){
+	for(var cacheTags in cache){
+		var len = cacheTags.length;
 		while(len--){
-			var tmp = cacheTag[len];
-			if(tmp['el'] === el && tmp['type'] === type && tmp['hander'] === hander && tmp['isBobble'] === isBobble){
-				return len;
-			}
+			var tmpTag = cacheTags[len];
+			remove(tmpTag['el'],tmpTag['type'],tmpTag['hander'],tmpTag['isBobble']);
 		}
-		return false;
-	}
-
-	return false;
-}
-
-function removeCacheListener(el,type,hander){
-	var len = cache.length;
-	while(len--){
-		var tmp = cache[len];
-		if(tmp['el'] === el && tmp['type'] === type && tmp['hander'] === hander){
-			cache.splice(len,1);
-		}
-	}
-}
-
-/*listen(win,'unload',function(){
-	var len = cache.length;
-	while(len--){
-		var tmp = cache[len];
-		unlisten(tmp['el'],tmp['type'],tmp['hander']);
 	}
 	cache = null;
-});*/
+}
+
+remove(win,'unload',unload);

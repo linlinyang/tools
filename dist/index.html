@@ -44,6 +44,13 @@
 			height: 200px;
 			line-height: 100px;
 		}
+
+		#remove{
+			position: absolute;
+			top: 0;
+			left: 0;
+			padding: 10px;
+		}
 	</style>
 	<script type="text/javascript" src="https://cdn.bootcss.com/jquery/1.8.3/jquery.min.js"></script>
 </head>
@@ -62,10 +69,22 @@
 			<p>dtyjjuyty</p>
 		</div>
 	</div>
+<div class="ss" id="ss"></div>
+	<div class="remove" id="remove">Remove Btn</div>
 
 	<script type="text/javascript" src="tool.js"></script>
 	<script type="text/javascript">
 		var aa = document.getElementById('mybox');
+
+		Lin.listen(aa,'click',click);
+
+		function click(){
+			console.log('click');
+		}
+
+		Lin.listen(document.getElementById('remove'),'click',function(){
+			Lin.unlisten(aa,'click',click);
+		});
 
 	</script>
 

@@ -1,5 +1,23 @@
-
-function nodeIndex(node){
+/**
+ * return this element pos in it parent
+ *
+ * @param {node} el;the element which removed element
+ * 
+ * @example
+ * 
+ * <ul>
+ * 	   <li></li>
+ * 	   <li class='active'></li>
+ * 	   <li></li>
+ * 	   <li></li>
+ * 	   <li></li>
+ * </ul>
+ *
+ * Lin.nodeIndex(document.querySelector('active'))
+ * // => 1
+ *
+*/
+export default function nodeIndex(node){
 	var parent = node.parentNode,
 		pos = -1;
 	if(!parent){ return pos; }
@@ -20,6 +38,3 @@ function nodeIndex(node){
 	}
 	return -1;
 }
-
-
-export default nodeIndex;
