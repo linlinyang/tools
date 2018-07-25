@@ -1,5 +1,17 @@
-/*
-*count value in array appears
+/**
+ * count some value repeat numbers in array
+ *
+ * @param {array} arr;
+ * @param {anyValue} the value in array
+ * @return {number};the repeat numbers
+ * 
+ * @example
+ *
+ * var arr = [1,2,3,1,'1'];
+ * Lin.countOccurrences(arr,1);
+ * // => 2
+ *
+ *
 */
 
 

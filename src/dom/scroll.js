@@ -7,6 +7,16 @@ export function scrollLeft(el){
 	return scrollPos(el)['left'];
 }
 
+
+/**
+ * get this element scroll position
+ *
+ * @param {node} el;the element 
+ * @return {object}; 
+ * 		top // => scroll top
+ * 		left // => scroll left
+ *
+*/
 export function scrollPos(el){
 	if(el === doc){
 		return {

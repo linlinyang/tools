@@ -1,7 +1,17 @@
-/*
-*Creates an array of elements split into groups the length of `size`
+/**
+ * group array by a size
+ *
+ * @param {array} arr;
+ * @return {array};the new array
+ * 
+ * @example
+ * Lin.chunk([1,2,3,4,5,6,7,8,9,10],3);
+ * // => [[1,2,3],[4,5,6],[7,8,9],[10]]
+ *
+ * Lin.chunk([1,2,3,4,5,6,7,8,9,10],0);
+ * // => [1,2,3,4,5,6,7,8,9,10]
+ *
 */
-
 
 function chunk(arr,size){
 

@@ -3,6 +3,19 @@ import {getDocumentRect,getWindowRect} from './winOrDoc';
 import css from './css';
 import offset from './offset';
 
+/**
+ * return this element all position information and size info
+ *
+ * @param {node} el;the element which add event listener
+ * @return {object};
+ * 		top,left,bottom,right // => relative to window position;top property equal to top border distance to window top;
+ *  	width,height // => clientWidth + padding
+ * 		innerWidth,innerHeight // => clientWidth
+ * 		styleWidth,styleHeight // => clientWidth + padding + border
+ * 		x,y // => position related to document
+ * 
+ *
+*/
 export default function rect(el){
 	if(el === win){
 		return getWindowRect();

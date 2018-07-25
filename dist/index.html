@@ -76,16 +76,10 @@
 	<script type="text/javascript">
 		var aa = document.getElementById('mybox');
 
-		Lin.listen(aa,'click',click);
-
-		function click(){
-			console.log('click');
-		}
-
-		Lin.listen(document.getElementById('remove'),'click',function(){
-			Lin.unlisten(aa,'click',click);
-		});
-
+		var obj = [1,2,3,4,{name: 'zoro',age:22}],
+			obj1 = Lin.cloneArray(obj,true);
+		obj[4].age = 25;
+		console.log(obj1);
 	</script>
 
 </body>

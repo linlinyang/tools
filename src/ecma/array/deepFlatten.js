@@ -1,8 +1,17 @@
-/*
-*free all inner array into this array
+/**
+ * freed array in this array and covert to one array
+ *
+ * @param {array} arr;
+ * @return {array};
+ * 
+ * @example
+ *
+ * var arr = [1,2,3,[4,5,6,[7,8,9]],10];
+ * Lin.deepFlatten(arr);
+ * // => [1,2,3,4,5,6,7,8,9]
+ *
+ *
 */
-
-var ptoPush = Array.prototype.push;
 
 function deepFlatten(arr){
 
@@ -11,7 +20,7 @@ function deepFlatten(arr){
 	for(var i = 0, len = arr.length; i < len; i++){
 		val = arr[i];
 		if(Array.isArray(val)){
-			ptoPush.apply(newArr,deepFlatten(val));
+			Array.prototype.push.apply(newArr,deepFlatten(val));
 		}else{
 			newArr.push(val);
 		}

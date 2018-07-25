@@ -1,7 +1,28 @@
 import isPlainObject from '../object/isPlainObject';
 import cloneObject from '../object/cloneObject';
 
-export default function cloneArray(arr,isDeep,hasFuncOrUndefined){
+/**
+ * clone array
+ *
+ * @param {array} arr;the array will be cloned
+ * @param {boolean} isDeep;is deep clone or not
+ * @return {array};the cloned array
+ * 
+ * @example
+ * var arr = [1,2,3,4],
+ 		cloneArr = Lin.cloneArray(arr);
+ 		cloneArr.push(5);
+ * // arr => [1,2,3,4]
+ *
+ * var obj = {name: 'zoro',age: 20},
+ 		arr = [1,2,3,4,obj],
+ 		cloneArr = Lin.cloneArray(arr,true);
+ 		obj.age = 22;
+ * // cloneArr => [1,2,3,4,{name: 'zoro',age: 20}]
+ *
+ *
+*/
+export default function cloneArray(arr,isDeep){
 	if(!arr){
 		return [];
 	}
@@ -11,10 +32,7 @@ export default function cloneArray(arr,isDeep,hasFuncOrUndefined){
 	if(!isDeep){
 		return arr.slice();
 	}
-	if(!!hasFuncOrUndefined){
-		return clone(arr);
-	}
-	return JSON.parse(JSON.stringify(arr));
+	return clone(arr);
 }
 
 function clone(targetArr){

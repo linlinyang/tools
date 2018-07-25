@@ -1,4 +1,17 @@
-
+/**
+ * make shure item in array will be unique
+ *
+ * @param {array} arr;
+ * @return {array};return the origin array
+ * 
+ * @example
+ *
+ * var arr = [4,2,6,4,6,1];
+ * Lin.unique(arr);
+ * // => [4,2,6,1]
+ *
+ *
+*/
 function unique(arr){
 	var obj = {},
 		len = arr.length;

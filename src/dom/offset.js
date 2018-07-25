@@ -8,6 +8,15 @@ export function offsetTop(el){
 	return offset(el)['top'];
 }
 
+/**
+ * return top and left relative to document position
+ *
+ * @param {node} el;the element
+ * @return {object};
+ * 		top // => offset of top
+ * 		left // => offset of left
+ * 
+*/
 export default function offset(el){
 	if(el === win || el === doc){
 		return {

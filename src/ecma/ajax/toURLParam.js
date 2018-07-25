@@ -1,6 +1,27 @@
 import isPlainObject from '../object/isPlainObject';
 import toString from '../string/toString';
 
+
+/**
+ * convert object to string as search for url
+ *
+ * @param {Object} data;
+ * @param {string} url;
+ * @return {string};the url stitch thie data params
+ * 
+ * 
+ * @example
+ * Lin.toURLParam({
+			name: 'zoro',
+			age: 25,
+			undef: undefined,
+			isHappy: true,
+			ispoor: false,
+			others: null
+		});
+ * // => name=zoro&age=25&isHappy=1&ispoor=0
+ *
+*/
 export default function toURLParam(data,url){
 	if(!isPlainObject(data)){
 		return '';
