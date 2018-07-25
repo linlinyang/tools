@@ -1,3 +1,17 @@
+/**
+ * repeat string
+ *
+ * @param {string} str;the repeat string
+ * @param {number} n;repeat times
+ * @return {string}; return the repeat string
+ * 
+ * @example
+ * 
+ *
+ * Lin.repeatStr('abc',3)
+ * // => 'abcabcabc'
+ *
+*/
 
 function repeatStr(str,n){
 	str = String(str);

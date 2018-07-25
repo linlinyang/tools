@@ -9,8 +9,8 @@ import repeat from "./repeatStr";
  * @example
  *
  * var str = 'abc';
- * Lin.padLeft(str,10,'0');
- * // => '0000000abc'
+ * Lin.padRight(str,10,'0');
+ * // => 'abc0000000'
  *
  *
 */

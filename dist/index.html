@@ -74,12 +74,66 @@
 
 	<script type="text/javascript" src="tool.js"></script>
 	<script type="text/javascript">
-		var aa = document.getElementById('mybox');
+		var aa = document.getElementById('mybox'),
+			bb = document.getElementById('remove');
 
-		var obj = [1,2,3,4,{name: 'zoro',age:22}],
-			obj1 = Lin.cloneArray(obj,true);
-		obj[4].age = 25;
-		console.log(obj1);
+		/*Lin.listen(aa,'click',function(){
+			console.log('aaa');
+		},false);*/
+		/*Lin.listen(aa,[{
+				click: function(){
+					console.log('click');
+				},
+				isBobble: false
+			},{
+				dblclick: function(){
+					console.log('dbclick');
+				},
+				isBobble: true
+			}
+		]);*/
+		/*Lin.listen([{
+			el: aa,
+			type: 'click',
+			hander: function(){
+				console.log('click');
+			},
+			isBobble: false
+		},{
+			el: bb,
+			click: function(){
+				console.log('bb');
+			},
+			isBobble: false
+		}]);*/
+
+		Lin.listen([{
+			el: aa,
+			binds: [{
+				click: function(){
+					console.log('aa click');
+				},
+				isBobble: false
+			},{
+				dblclick: function(){
+					console.log('aa double click');
+				},
+				isBobble: true
+			}]
+		},{
+			el: bb,
+			binds: [{
+				click: function(){
+					console.log('bb click');
+				},
+				isBobble: false
+			},{
+				dbclick: function(){
+					console.log('bb double click');
+				},
+				isBobble: true
+			}]
+		}]);
 	</script>
 
 </body>
