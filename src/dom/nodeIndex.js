@@ -13,7 +13,7 @@
  * 	   <li></li>
  * </ul>
  *
- * Lin.nodeIndex(document.querySelector('active'))
+ * Lin.nodeIndex(document.querySelector('.active'))
  * // => 1
  *
 */

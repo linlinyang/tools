@@ -1,5 +1,5 @@
 import {win} from './config.js';
-import {isPlainObject} from '../ecma/object/isPlainObject';
+import cloneArray from '../ecma/array/cloneArray';
 
 var cache = Object.create(null),
 	add = win.addEventListener 
@@ -28,8 +28,8 @@ var cache = Object.create(null),
 /**
  * add event listener to some element
  *
- * @param {node} el;the element which add event listener
- * @param {string} type;the event type
+ * @param {node|array} el;the element which add event listener
+ * @param {string|array} type;the event type
  * @param {function} hander;the function which fired event
  * @param {boolean} isBobble; is bobble for event and the event must support it
  * 
@@ -141,6 +141,17 @@ export default function listen(elOrArr,typeOrArr,hander,isBobble){
 
 }
 
+/**
+ * add event listener by object
+ * @param {object} options;
+ * options = {
+	el: The element,
+	type: event type,
+	hander: event hander,
+	isBobble: can bobble event,
+	type: hander; ==> equal to type and hander
+ }
+*/
 function addListen(options){
 	var el = options.el,
 		type = options.type,
@@ -163,14 +174,6 @@ function addListen(options){
 	toggleCache(el,type,hander,isBobble);
 }
 
-/*function addListen(el,type,hander,isBobble){
-	type = String(type).toLowerCase();
-	isBobble = !!isBobble;
-
-	add(el,type,hander,isBobble);
-	toggleCache(el,type,hander,isBobble);
-}*/
-
 /**
  * remove event listener from some element
  *
@@ -182,19 +185,66 @@ function addListen(options){
  * @example
  * 
  * var btn = document.getElementByTagName('button')[0];
- * Lin.unlisten(btn,'click',clickFunc,true);
- * function clickFunc(){}
+ * Lin.unlisten(btn);
+ * // => remove all listener from btn
  *
+ * Lin.unlisten(btn,'click')
+ * // => remove all click listener from btn
+ *
+ * Lin.unlisten(btn,'click',hander)
+ * // => remove all click listener from btn,ignore is bobble or not
+ *
+ * Lin.unlisten(btn,'click',hander,false)
+ * // => remove only event from btn
  *
 */
 export function unlisten(el,type,hander,isBobble){
+	if(!el){
+		throw new Error('element must be require');
+	}
+	var tagName = el.tagName;
+	tagName = (tagName && tagName.toLowerCase()) || 'otherTag';
+
+	var cacheTags = cloneArray(cache[tagName]);
+	for(var i = 0,len = cacheTags.length; i < len; i++){
+		var tmpTag = cacheTags[i];
+		if(tmpTag.el === el){
+			!type && removeListen(tmpTag);
+			if(tmpTag.type === type){
+				!hander && removeListen(tmpTag);
+				if(tmpTag.hander === hander){
+					isBobble === undefined && removeListen(tmpTag);
+					if(tmpTag.isBobble === isBobble){
+						removeListen(tmpTag);
+					}
+				}
+			}
+		}
+	}
+}
+
+/*
+* remove listener from element and remove cache
+* options.el ==> the element
+* options.type ==> event type
+* options.hander ==> event hander
+* options.isBobble ==> event is bobble
+*/
+function removeListen(options){
+	var el = options.el,
+		type = options.type,
+		hander = options.hander,
+		isBobble = !!options.isBobble;
 	type = String(type).toLowerCase();
-	isBobble = !!isBobble;
 
 	remove(el,type,hander,isBobble);
 	toggleCache(el,type,hander,isBobble);
 }
 
+/*
+*if cached this element and it's event,then remove it;
+*or cache element and it's event 
+*/
 function toggleCache(el,type,hander,isBobble){
 	var tagName = el.tagName;
 	tagName = (tagName && tagName.toLowerCase()) || 'otherTag';
